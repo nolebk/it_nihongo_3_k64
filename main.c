@@ -53,6 +53,10 @@ void commitInTime(char *date) {
         commit(date, i + 1);
         usleep(500000);
     }
+
+    sprintf(command, "date %s", today());
+    system(command);
+    free(command);
 }
 
 void push() {
