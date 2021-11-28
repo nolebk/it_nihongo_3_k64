@@ -5,7 +5,7 @@
 #include <winsock2.h>
 #include <unistd.h>
 
-char *_today = NULL;
+char *today_t = NULL;
 
 char *readDataFile() {
     char *buf = malloc(100);
@@ -56,7 +56,7 @@ void commitInTime(char *date) {
         usleep(500000);
     }
 
-    sprintf(command, "date %s", today());
+    sprintf(command, "date %s", today_t);
     system(command);
     free(command);
 }
@@ -83,7 +83,7 @@ char *addADay(char *date) {
 
 int main() {
     srand(time(NULL));
-    _today = today();
+    today_t = today();
     char date[] = "28/11/2021";
     commitInTime(date);
     push();
