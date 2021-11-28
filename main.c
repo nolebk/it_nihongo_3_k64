@@ -51,7 +51,7 @@ void commitInTime(char *date) {
     system(command);
     for (int i = 0; i < random; ++i) {
         commit(date, i + 1);
-        usleep(1000000);
+        usleep(500000);
     }
 }
 
@@ -78,5 +78,6 @@ int main() {
     srand(time(NULL));
     char date[] = "28/11/2021";
     commitInTime(date);
+    push();
     return 0;
 }
