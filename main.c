@@ -5,6 +5,8 @@
 #include <winsock2.h>
 #include <unistd.h>
 
+char *_today = NULL;
+
 char *readDataFile() {
     char *buf = malloc(100);
     FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "r");
@@ -62,6 +64,7 @@ void commitInTime(char *date) {
 void push() {
     system("cd C:\\Data\\C\\AutoCommit && git push");
 }
+
 char *addADay(char *date) {
     struct tm *info = malloc(sizeof(struct tm));
     memset(info, 0, sizeof(struct tm));
@@ -80,6 +83,7 @@ char *addADay(char *date) {
 
 int main() {
     srand(time(NULL));
+    _today = today();
     char date[] = "28/11/2021";
     commitInTime(date);
     push();
