@@ -85,7 +85,10 @@ int main() {
     srand(time(NULL));
     today_t = today();
     char date[] = "28/11/2021";
-    commitInTime(date);
+    for (int i = 0; i < 7; ++i) {
+        sprintf(date, "%s", addADay(date));
+        commitInTime(date);
+    }
     push();
     return 0;
 }
