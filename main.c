@@ -83,8 +83,8 @@ char *addADay(char *date) {
 int main() {
     srand(time(NULL));
     today_t = today();
-    char date[][10] = {"23/3/2022","24/3/2022","28/3/2022","1/4/2022","3/4/2022","6/4/2022","7/4/2022","8/4/2022"};
-    for (int i = 0; i < 8; ++i) {
+    char date[][10] = {"20/4/2022","21/4/2022","23/4/2022","29/4/2022","4/5/2022","5/5/2022"};
+    for (int i = 0; i < 6; ++i) {
         printf("%s\n", date[i]);
         commitInTime(date[i]);
     }
