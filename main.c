@@ -49,7 +49,7 @@ void commit(char *string, int i) {
     char *command = malloc(200);
     sprintf(command, "git commit -m \"update %s\"", tmp);
     system(command);
-    system("cd");
+    system("git push");
     free(tmp);
     tmp = NULL;
 }
