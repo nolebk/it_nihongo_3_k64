@@ -1,0 +1,3 @@
+C:/Data/C/AutoCommit/cmake-build-debug-mingw/CMakeFiles/AutoCommit.dir
+C:/Data/C/AutoCommit/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+C:/Data/C/AutoCommit/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
