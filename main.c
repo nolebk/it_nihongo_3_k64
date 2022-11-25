@@ -41,6 +41,7 @@ int main() {
     struct hostent *hostinfo;
     while (hostinfo == NULL)
         hostinfo = gethostbyname ("google.com");
+
     time_t now = time(NULL);
     srand(time(NULL));
     struct tm *info = localtime(&now);
@@ -49,6 +50,7 @@ int main() {
     printf("today: %s\n", string);
     fflush(stdout);
 
+    system("cd C:\\Data\\C\\AutoCommit");
     char *input = readDataFile();
     if (input != NULL) {
         if (strcmp(input, string) != 0) {
