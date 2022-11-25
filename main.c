@@ -36,6 +36,7 @@ void commit(char *string, int i) {
 }
 
 int main() {
+    ShowWindow( GetConsoleWindow(), SW_HIDE );
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
     struct hostent *hostinfo;
