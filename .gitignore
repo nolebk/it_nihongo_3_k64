@@ -1,4 +1,4 @@
 # Project exclude paths
 /cmake-build-debug/
-AutoCommit.exe
 /cmake-build-debug-mingw/
+AutoCommit.exe
