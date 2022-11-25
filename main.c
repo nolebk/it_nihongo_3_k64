@@ -3,39 +3,26 @@
 #include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <winsock2.h>
 
 char *readDataFile() {
     char *buf = malloc(100);
-    FILE *f = fopen("..//README.MD", "r");
+    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "r");
     if (f != NULL) {
         fscanf(f, "%s ", buf);
         fclose(f);
         return buf;
-    } else {
-        f = fopen("README.MD", "r");
-        if (f != NULL) {
-            fscanf(f, "%s", buf);
-            fclose(f);
-            return buf;
-        } else {
-            return NULL;
-        }
     }
+    return NULL;
 }
 
 void writeDataFile(char *string) {
-    FILE *f = fopen("../README.MD", "r");
+    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "r");
     if (f != NULL) {
         fclose(f);
         f = fopen("../README.MD", "wb");
         fwrite(string, 1, strlen(string), f);
         fclose(f);
-    } else {
-        f = fopen("README.MD", "wb");
-        if (f != NULL) {
-            fwrite(string, 1, strlen(string), f);
-            fclose(f);
-        }
     }
 }
 
@@ -45,7 +32,7 @@ void commit(char *string, int i) {
     printf("committing %s\n", tmp);
     fflush(stdout);
     writeDataFile(tmp);
-    system("git add .");
+    system("git add README.MD");
     char *command = malloc(200);
     sprintf(command, "git commit -m \"update %s\"", tmp);
     system(command);
@@ -54,6 +41,11 @@ void commit(char *string, int i) {
 }
 
 int main() {
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+    struct hostent *hostinfo;
+    while (hostinfo == NULL)
+        hostinfo = gethostbyname ("google.com");
     time_t now = time(NULL);
     srand(time(NULL));
     struct tm *info = localtime(&now);
