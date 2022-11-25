@@ -49,7 +49,6 @@ void commit(char *string, int i) {
     char *command = malloc(200);
     sprintf(command, "git commit -m \"update %s\"", tmp);
     system(command);
-    system("git push");
     free(tmp);
     tmp = NULL;
 }
@@ -71,8 +70,8 @@ int main() {
             fflush(stdout);
             for (int i = 0; i < random; ++i) {
                 commit(string, i + 1);
-                sleep(2);
             }
+            system("git push");
         }
     }
     return 0;
