@@ -29,7 +29,7 @@ void commit(char *string, int i) {
     fflush(stdout);
     writeDataFile(tmp);
     char *command = malloc(200);
-    sprintf(command, "git add . && git commit -m \"update %s\"", tmp);
+    sprintf(command, "cd C:\\Data\\C\\AutoCommit && git add . && git commit -m \"update %s\"", tmp);
     system(command);
     free(tmp);
     tmp = NULL;
@@ -50,7 +50,6 @@ int main() {
     printf("today: %s\n", string);
     fflush(stdout);
 
-    system("cd C:\\Data\\C\\AutoCommit");
     char *input = readDataFile();
     if (input != NULL) {
         if (strcmp(input, string) != 0) {
@@ -61,7 +60,7 @@ int main() {
                 commit(string, i + 1);
                 sleep(1);
             }
-            system("git push");
+            system("cd C:\\Data\\C\\AutoCommit && git push");
         }
     }
     return 0;
