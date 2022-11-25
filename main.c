@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <winsock2.h>
+#include <unistd.h>
 
 char *readDataFile() {
     char *buf = malloc(100);
@@ -27,9 +28,8 @@ void commit(char *string, int i) {
     printf("committing %s\n", tmp);
     fflush(stdout);
     writeDataFile(tmp);
-    system("git add .");
     char *command = malloc(200);
-    sprintf(command, "git commit -m \"update %s\"", tmp);
+    sprintf(command, "git add . && git commit -m \"update %s\"", tmp);
     system(command);
     free(tmp);
     tmp = NULL;
@@ -57,6 +57,7 @@ int main() {
             fflush(stdout);
             for (int i = 0; i < random; ++i) {
                 commit(string, i + 1);
+                sleep(1);
             }
             system("git push");
         }
