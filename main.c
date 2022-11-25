@@ -2,7 +2,6 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <winsock2.h>
 
 char *readDataFile() {
@@ -13,17 +12,13 @@ char *readDataFile() {
         fclose(f);
         return buf;
     }
-    return NULL;
+    return "Error";
 }
 
 void writeDataFile(char *string) {
-    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "r");
-    if (f != NULL) {
-        fclose(f);
-        f = fopen("../README.MD", "wb");
+        FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "wb");
         fwrite(string, 1, strlen(string), f);
         fclose(f);
-    }
 }
 
 void commit(char *string, int i) {
@@ -32,7 +27,7 @@ void commit(char *string, int i) {
     printf("committing %s\n", tmp);
     fflush(stdout);
     writeDataFile(tmp);
-    system("git add README.MD");
+    system("git add .");
     char *command = malloc(200);
     sprintf(command, "git commit -m \"update %s\"", tmp);
     system(command);
