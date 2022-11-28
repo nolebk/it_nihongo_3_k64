@@ -2,7 +2,6 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
-#include <winsock2.h>
 #include <unistd.h>
 
 char *today_t = NULL;
