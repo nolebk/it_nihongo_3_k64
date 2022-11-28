@@ -17,16 +17,14 @@ char *readDataFile() {
 }
 
 void writeDataFile(char *string) {
-        FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "wb");
-        fwrite(string, 1, strlen(string), f);
-        fclose(f);
+    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "wb");
+    fwrite(string, 1, strlen(string), f);
+    fclose(f);
 }
 
 void commit(char *string, int i) {
     char *tmp = strdup(string);
     sprintf(tmp + strlen(tmp), " %d", i);
-    printf("committing %s\n", tmp);
-    fflush(stdout);
     writeDataFile(tmp);
     char *command = malloc(200);
     sprintf(command, "cd C:\\Data\\C\\AutoCommit && git add . && git commit -m \"update %s\"", tmp);
@@ -35,34 +33,50 @@ void commit(char *string, int i) {
     tmp = NULL;
 }
 
-int main() {
-    ShowWindow( GetConsoleWindow(), SW_HIDE );
-    WSADATA wsaData;
-    WSAStartup(MAKEWORD(2, 2), &wsaData);
-    struct hostent *hostinfo;
-    while (hostinfo == NULL)
-        hostinfo = gethostbyname ("google.com");
-
+char *today() {
     time_t now = time(NULL);
-    srand(time(NULL));
     struct tm *info = localtime(&now);
-    char string[100] = {0};
+    char *string = calloc(100, sizeof(char));
     strftime(string, 30, "%d/%m/%Y", info);
-    printf("today: %s\n", string);
-    fflush(stdout);
+    return string;
+}
 
-    char *input = readDataFile();
-    if (input != NULL) {
-        if (strcmp(input, string) != 0) {
-            int random = rand() % 5 + 1;
-            printf("change %d\n", random);
-            fflush(stdout);
-            for (int i = 0; i < random; ++i) {
-                commit(string, i + 1);
-                sleep(1);
-            }
-            system("cd C:\\Data\\C\\AutoCommit && git push");
-        }
+void commitInTime(char *date) {
+
+    int random = rand() % 5 + 1;
+    printf("commit %s\n", date);
+    fflush(stdout);
+    char *command = calloc(120, sizeof(char));
+    sprintf(command, "date %s", date);
+    system(command);
+    for (int i = 0; i < random; ++i) {
+        commit(date, i + 1);
+        usleep(1000000);
     }
+}
+
+void push() {
+    system("cd C:\\Data\\C\\AutoCommit && git push");
+}
+char *addADay(char *date) {
+    struct tm *info = malloc(sizeof(struct tm));
+    memset(info, 0, sizeof(struct tm));
+    sscanf(date, "%d/%d/%d", &info->tm_mday, &info->tm_mon, &info->tm_year);
+    info->tm_mon -= 1;
+    info->tm_year -= 1900;
+    time_t oldtime = mktime(info);
+    time_t newtime = oldtime + 24 * 60 * 60;
+    struct tm *newinfo = localtime(&newtime);
+    char *string = calloc(100, sizeof(char));
+    strftime(string, 30, "%d/%m/%Y", newinfo);
+    free(info);
+    free(newinfo);
+    return string;
+}
+
+int main() {
+    srand(time(NULL));
+    char date[] = "28/11/2021";
+    commitInTime(date);
     return 0;
 }
