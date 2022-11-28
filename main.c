@@ -83,10 +83,10 @@ char *addADay(char *date) {
 int main() {
     srand(time(NULL));
     today_t = today();
-    char date[] = "28/11/2021";
+    char date[][10] = {"31/1/2022","7/2/2022","8/2/2022","9/2/2022","10/2/2022","11/2/2022","14/2/2022"};
     for (int i = 0; i < 7; ++i) {
-        sprintf(date, "%s", addADay(date));
-        commitInTime(date);
+        printf("%s\n", date[i]);
+        commitInTime(date[i]);
     }
     push();
     return 0;
