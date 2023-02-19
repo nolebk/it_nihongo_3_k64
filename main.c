@@ -80,8 +80,9 @@ char *addADay(char *date) {
     return string;
 }
 void randomDayToDay(char *date1, char *date2) {
+    char *date = strdup(date1);
     while (1) {
-        char *date = addADay(date1);
+        date = addADay(date);
         if (strcmp(date, date2) == 0) {
             break;
         }
