@@ -86,7 +86,7 @@ void randomDayToDay(char *date1, char *date2) {
         if (strcmp(date, date2) == 0) {
             break;
         }
-        int random = rand() % 2;
+        int random = rand() % 3;
         if (random == 0) {
             commitInTime(date);
         }
@@ -103,7 +103,7 @@ int main() {
 //    }
 //    push();
 //    return 0;
-    randomDayToDay("13/7/2023", "21/05/2023");
+    randomDayToDay("13/7/2023", "11/11/2023");
 //    push();
     return 0;
 }
