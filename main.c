@@ -79,15 +79,30 @@ char *addADay(char *date) {
     free(newinfo);
     return string;
 }
-
+void randomDayToDay(char *date1, char *date2) {
+    while (1) {
+        char *date = addADay(date1);
+        if (strcmp(date, date2) == 0) {
+            break;
+        }
+        int random = rand() % 2;
+        if (random == 0) {
+            commitInTime(date);
+        }
+        free(date);
+    }
+}
 int main() {
     srand(time(NULL));
     today_t = today();
-    char date[][11] = {"29/12/2021","4/1/2022","5/1/2022","6/1/2022","12/1/2022","13/1/2022","14/1/2022","18/1/2022","19/1/2022","20/1/2022","26/1/2022"};
-    for (int i = 0; i < 11; ++i) {
-        printf("%s\n", date[i]);
-        commitInTime(date[i]);
-    }
+//    char date[][11] = {"29/12/2021","4/1/2022","5/1/2022","6/1/2022","12/1/2022","13/1/2022","14/1/2022","18/1/2022","19/1/2022","20/1/2022","26/1/2022"};
+//    for (int i = 0; i < 11; ++i) {
+//        printf("%s\n", date[i]);
+//        commitInTime(date[i]);
+//    }
+//    push();
+//    return 0;
+    randomDayToDay("19/2/2023", "1/3/2023");
     push();
     return 0;
 }
