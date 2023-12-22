@@ -103,6 +103,6 @@ int main() {
 //    push();
 //    return 0;
     randomDayToDay("19/2/2023", "1/3/2023");
-    push();
+//    push();
     return 0;
 }
