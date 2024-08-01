@@ -27,7 +27,7 @@ void commit(const char *string, const int i) {
     char *tmp = strdup(string);
     sprintf(tmp + strlen(tmp), " %d", i);
     writeDataFile(tmp);
-    char *command = malloc(200);
+    char command[100] = {0};
     sprintf(command, "cd D:\\Data\\source_code\\C\\AutoCommit && git add . && git commit -m \"update %s\"", tmp);
     system(command);
     free(tmp);
