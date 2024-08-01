@@ -96,7 +96,6 @@ void randomDayToDay(const char *date1, const char *date2) {
         if (random == 0) {
             commitInTime(date);
         }
-        free(date);
     }
 }
 int main() {
