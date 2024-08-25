@@ -8,7 +8,7 @@ char *today_t = NULL;
 
 char *readDataFile() {
     char *buf = malloc(100);
-    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "r");
+    FILE *f = fopen("D:\\Data\\source_code\\C\\AutoCommit\\README.MD", "r");
     if (f != NULL) {
         fscanf(f, "%s ", buf);
         fclose(f);
@@ -18,7 +18,7 @@ char *readDataFile() {
 }
 
 void writeDataFile(char *string) {
-    FILE *f = fopen("C:\\Data\\C\\AutoCommit\\README.MD", "wb");
+    FILE *f = fopen("D:\\Data\\source_code\\C\\AutoCommit\\README.MD", "wb");
     fwrite(string, 1, strlen(string), f);
     fclose(f);
 }
@@ -28,7 +28,7 @@ void commit(char *string, int i) {
     sprintf(tmp + strlen(tmp), " %d", i);
     writeDataFile(tmp);
     char *command = malloc(200);
-    sprintf(command, "cd C:\\Data\\C\\AutoCommit && git add . && git commit -m \"update %s\"", tmp);
+    sprintf(command, "cd D:\\Data\\source_code\\C\\AutoCommit && git add . && git commit -m \"update %s\"", tmp);
     system(command);
     free(tmp);
     tmp = NULL;
@@ -61,7 +61,7 @@ void commitInTime(char *date) {
 }
 
 void push() {
-    system("cd C:\\Data\\C\\AutoCommit && git push");
+    system("cd cd D:\\Data\\source_code\\C\\AutoCommit && git push");
 }
 
 char *addADay(char *date) {
@@ -103,7 +103,7 @@ int main() {
 //    }
 //    push();
 //    return 0;
-    randomDayToDay("13/7/2023", "11/11/2023");
+    randomDayToDay("25/8/2024", "1/9/2024");
 //    push();
     return 0;
 }
