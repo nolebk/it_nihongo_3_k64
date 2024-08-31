@@ -17,13 +17,13 @@ char *readDataFile() {
     return "Error";
 }
 
-void writeDataFile(char *string) {
+void writeDataFile(const char *string) {
     FILE *f = fopen("D:\\Data\\source_code\\C\\AutoCommit\\README.MD", "wb");
     fwrite(string, 1, strlen(string), f);
     fclose(f);
 }
 
-void commit(char *string, int i) {
+void commit(const char *string, const int i) {
     char *tmp = strdup(string);
     sprintf(tmp + strlen(tmp), " %d", i);
     writeDataFile(tmp);
@@ -35,16 +35,15 @@ void commit(char *string, int i) {
 }
 
 char *today() {
-    time_t now = time(NULL);
-    struct tm *info = localtime(&now);
+    const time_t now = time(NULL);
+    const struct tm *info = localtime(&now);
     char *string = calloc(100, sizeof(char));
     strftime(string, 30, "%d/%m/%Y", info);
     return string;
 }
 
 void commitInTime(char *date) {
-
-    int random = rand() % 5 + 1;
+    const int random = rand() % 5 + 1;
     printf("commit %s\n", date);
     fflush(stdout);
     char *command = calloc(120, sizeof(char));
@@ -64,29 +63,36 @@ void push() {
     system("cd cd D:\\Data\\source_code\\C\\AutoCommit && git push");
 }
 
-char *addADay(char *date) {
-    struct tm *info = malloc(sizeof(struct tm));
-    memset(info, 0, sizeof(struct tm));
-    sscanf(date, "%d/%d/%d", &info->tm_mday, &info->tm_mon, &info->tm_year);
-    info->tm_mon -= 1;
-    info->tm_year -= 1900;
-    time_t oldtime = mktime(info);
-    time_t newtime = oldtime + 24 * 60 * 60;
-    struct tm *newinfo = localtime(&newtime);
-    char *string = calloc(100, sizeof(char));
-    strftime(string, 30, "%d/%m/%Y", newinfo);
-    free(info);
-    free(newinfo);
-    return string;
+char *addADay(char *input_date) {
+    int day, month, year;
+
+    // Phân tích chuỗi ngày vào các biến số nguyên
+    sscanf(input_date, "%d/%d/%d", &day, &month, &year);
+
+    // Tạo cấu trúc tm và thiết lập các giá trị
+    struct tm date = {0};
+    date.tm_mday = day;
+    date.tm_mon = month - 1; // Tháng trong struct tm từ 0 đến 11
+    date.tm_year = year - 1900; // Năm trong struct tm tính từ 1900
+
+    // Thêm 1 ngày
+    date.tm_mday += 1;
+
+    // Điều chỉnh lại thời gian để có ngày hợp lệ
+    mktime(&date);
+
+    // Đưa kết quả trở lại chuỗi
+    strftime(input_date, 11, "%d/%m/%Y", &date);
 }
-void randomDayToDay(char *date1, char *date2) {
-    char *date = strdup(date1);
+void randomDayToDay(const char *date1, const char *date2) {
+    char *date = malloc(11);
+    strcpy(date, date1);
     while (1) {
-        date = addADay(date);
+        addADay(date);
         if (strcmp(date, date2) == 0) {
             break;
         }
-        int random = rand() % 3;
+        const int random = rand() % 3;
         if (random == 0) {
             commitInTime(date);
         }
